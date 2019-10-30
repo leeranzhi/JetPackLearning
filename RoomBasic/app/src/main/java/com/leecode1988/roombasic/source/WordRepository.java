@@ -3,7 +3,7 @@ package com.leecode1988.roombasic.source;
 import android.content.Context;
 import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
-import com.leecode1988.roombasic.wordsdemo.Word;
+import com.leecode1988.roombasic.words.Word;
 import java.util.List;
 
 /**
@@ -12,41 +12,49 @@ import java.util.List;
  * @author Lee
  * @create 2019/10/29 18:02
  */
-class WordRepository {
+public class WordRepository {
     private WordDao wordDao;
 
-
-     LiveData<List<Word>> getAllWordsLive() {
-        return allWordsLive;
-    }
-
-
     private LiveData<List<Word>> allWordsLive;
+    private static WordRepository INSTANCE;
 
 
-    public WordRepository(Context context) {
+    private WordRepository(Context context) {
         WordDataBase wordDataBase = WordDataBase.getWordDataBase(context.getApplicationContext());
         wordDao = wordDataBase.getWordDao();
         allWordsLive = wordDao.getAllWordsLive();
     }
 
 
-    void insertWords(Word... word) {
+    public static WordRepository getInstance(Context context) {
+        if (INSTANCE == null) {
+            INSTANCE = new WordRepository(context);
+        }
+        return INSTANCE;
+    }
+
+
+    public LiveData<List<Word>> getAllWordsLive() {
+        return allWordsLive;
+    }
+
+
+    public void insertWords(Word... word) {
         new InsertAsyncTask(wordDao).execute(word);
     }
 
 
-    void updateWords(Word... word) {
+    public void updateWords(Word... word) {
         new UpdateAsyncTask(wordDao).execute(word);
     }
 
 
-    void deleteWords(Word... word) {
+    public void deleteWords(Word... word) {
         new DeleteAsyncTask(wordDao).execute(word);
     }
 
 
-    void deleteAllWords() {
+    public void deleteAllWords() {
         new DeleteAllAsyncTask(wordDao).execute();
     }
 
@@ -63,7 +71,8 @@ class WordRepository {
         /**
          * 执行之前
          */
-        @Override protected void onPreExecute() {
+        @Override
+        protected void onPreExecute() {
             super.onPreExecute();
         }
 
@@ -74,7 +83,8 @@ class WordRepository {
          * @param values
          * @Tag some
          */
-        @Override protected void onProgressUpdate(Void... values) {
+        @Override
+        protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
         }
 

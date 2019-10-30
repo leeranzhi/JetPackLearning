@@ -4,12 +4,10 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import com.leecode1988.roombasic.wordsdemo.Word;
-
-//singleton
-
+import com.leecode1988.roombasic.words.Word;
 
 /**
+ * singleton
  * 实例化AppDatabase对象时，
  * 应遵循单例设计模式
  *

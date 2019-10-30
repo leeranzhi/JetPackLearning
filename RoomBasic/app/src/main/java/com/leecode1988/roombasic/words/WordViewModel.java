@@ -1,11 +1,10 @@
-package com.leecode1988.roombasic.wordsdemo;
+package com.leecode1988.roombasic.words;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import com.leecode1988.roombasic.WordRepository;
-import com.leecode1988.roombasic.wordsdemo.Word;
+import com.leecode1988.roombasic.source.WordRepository;
 import java.util.List;
 
 public class WordViewModel extends AndroidViewModel {
@@ -15,7 +14,7 @@ public class WordViewModel extends AndroidViewModel {
 
     public WordViewModel(@NonNull Application application) {
         super(application);
-        wordRepository = new WordRepository(application);
+        wordRepository = WordRepository.getInstance(application);
     }
 
 

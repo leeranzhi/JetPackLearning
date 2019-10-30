@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-import com.leecode1988.roombasic.wordsdemo.Word;
+import com.leecode1988.roombasic.words.Word;
 import java.util.List;
 
 @Dao  //Database access object(数据库操作的声明)

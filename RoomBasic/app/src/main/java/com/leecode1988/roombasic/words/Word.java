@@ -1,4 +1,4 @@
-package com.leecode1988.roombasic.wordsdemo;
+package com.leecode1988.roombasic.words;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
