@@ -17,7 +17,7 @@ import com.leecode1988.roombasic.words.Word;
  * @author Lee
  * @create 2019/10/29 17:33
  */
-@Database(entities = { Word.class }, version = 4, exportSchema = false)
+@Database(entities = { Word.class }, version = 5, exportSchema = false)
 public abstract class WordDataBase extends RoomDatabase {
     private static WordDataBase INSTANCE;
 
@@ -30,7 +30,7 @@ public abstract class WordDataBase extends RoomDatabase {
                         //重新生成
                         // .fallbackToDestructiveMigration()
                         //迁移策略
-                        .addMigrations(migration_3_4)
+                        .addMigrations(migration_4_5)
                         .build();
                 }
             }
@@ -45,6 +45,15 @@ public abstract class WordDataBase extends RoomDatabase {
     static final Migration migration_2_3 = new Migration(2, 3) {
         @Override public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE WORD ADD COLUMN bar_data INTEGER NOT NULL DEFAULT 1");
+        }
+    };
+
+    /**
+     * 新增表中字段属性
+     */
+    static final Migration migration_4_5 = new Migration(4, 5) {
+        @Override public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE WORD ADD COLUMN chinese_invisible INTEGER NOT NULL DEFAULT 1");
         }
     };
 

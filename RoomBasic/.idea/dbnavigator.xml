@@ -39,9 +39,6 @@
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
-  <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/xiaomi-mix_2s-268043ea/data/data/com.leecode1988.roombasic/databases/word_database" connection-id="virtual-sqlite-connection" session-id="MAIN" current-schema="" />
-  </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
     <execution-history>

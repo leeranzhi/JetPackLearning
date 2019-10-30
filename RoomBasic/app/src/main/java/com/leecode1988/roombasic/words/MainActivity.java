@@ -1,7 +1,6 @@
 package com.leecode1988.roombasic.words;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -11,7 +10,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.leecode1988.roombasic.MyAdapter;
 import com.leecode1988.roombasic.R;
 import java.util.List;
 
@@ -72,16 +70,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
 
         wordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
 
+        initView();
+
         wordViewModel.getAllWordsLive().observe(this, new Observer<List<Word>>() {
             @Override public void onChanged(List<Word> words) {
+                int temp = myAdapterNormal.getItemCount();
                 myAdapterNormal.setAllWordList(words);
                 myAdapterCardView.setAllWordList(words);
-                myAdapterNormal.notifyDataSetChanged();
-                myAdapterCardView.notifyDataSetChanged();
+                //避免重复刷新数据
+                if (temp != words.size()) {
+                    myAdapterNormal.notifyDataSetChanged();
+                    myAdapterCardView.notifyDataSetChanged();
+                }
             }
         });
     }
@@ -96,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        myAdapterNormal = new MyAdapter(false);
-        myAdapterCardView = new MyAdapter(true);
+        myAdapterNormal = new MyAdapter(false, wordViewModel);
+        myAdapterCardView = new MyAdapter(true, wordViewModel);
 
         recyclerView.setAdapter(myAdapterNormal);
 
@@ -105,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonDelete.setOnClickListener(this);
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
+            @Override public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if (checked) {
                     recyclerView.setAdapter(myAdapterCardView);
                 } else {
                     recyclerView.setAdapter(myAdapterNormal);
