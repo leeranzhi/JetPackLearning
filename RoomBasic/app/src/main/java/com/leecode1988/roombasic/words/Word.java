@@ -11,8 +11,9 @@ public class Word {
 
     @ColumnInfo(name = "english_word")
     private String word;
-    @ColumnInfo(name = "chinese_word")
+    @ColumnInfo(name = "chinese_meaning")
     private String chineseMeaning;
+
 
 
     public int getId() {
