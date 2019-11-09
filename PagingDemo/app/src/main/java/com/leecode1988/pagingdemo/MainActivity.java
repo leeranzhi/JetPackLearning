@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         studentDataBase = StudentDataBase.getInstance(this);
         studentDao = studentDataBase.getStudentDao();
 
-        allStudentLivePaged = new LivePagedListBuilder<>(studentDao.getAllStudents(), 20)
+        //pageSize设置大一点，就会避免列表滑动时产生闪烁的情况。
+        allStudentLivePaged = new LivePagedListBuilder<>(studentDao.getAllStudents(), 50)
             .build();
         allStudentLivePaged.observe(this, new Observer<PagedList<Student>>() {
             @Override public void onChanged(PagedList<Student> students) {
